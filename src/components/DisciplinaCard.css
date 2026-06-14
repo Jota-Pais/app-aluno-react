@@ -1,14 +1,36 @@
 .disciplina {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.disciplina__cabecalho {
+.disciplina:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+}
+
+.disciplina__topo {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+}
+
+.disciplina__icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+}
+
+.disciplina__icone svg {
+  width: 22px;
+  height: 22px;
 }
 
 .disciplina__nome {
@@ -23,4 +45,9 @@
   color: var(--texto-suave);
   text-transform: uppercase;
   letter-spacing: 0.3px;
+}
+
+/* Mantém o botão alinhado na base, mesmo com cards de alturas diferentes. */
+.disciplina .botao {
+  margin-top: auto;
 }

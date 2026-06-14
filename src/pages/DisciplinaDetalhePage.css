@@ -1,0 +1,143 @@
+.detalhe__voltar {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--verde);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.detalhe__voltar:hover {
+  text-decoration: underline;
+}
+
+.detalhe__cabecalho {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.detalhe__icone {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+}
+
+.detalhe__icone svg {
+  width: 28px;
+  height: 28px;
+}
+
+.detalhe__info {
+  flex: 1;
+}
+
+.detalhe__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.detalhe__nome {
+  margin: 0 0 4px;
+  font-size: 24px;
+  color: var(--texto);
+}
+
+.detalhe__professor {
+  margin: 0;
+  font-size: 13px;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.detalhe__meta {
+  margin: 14px 0;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+.detalhe__grade {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.detalhe__bloco h3 {
+  margin: 0 0 14px;
+  font-size: 16px;
+  color: var(--texto);
+}
+
+.detalhe__descricao {
+  margin: 0 0 20px;
+  color: var(--texto-suave);
+  line-height: 1.55;
+}
+
+.detalhe__aulas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aula {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  color: var(--texto-suave);
+  border-bottom: 1px solid var(--borda);
+}
+
+.aula:last-child {
+  border-bottom: none;
+}
+
+.aula--ok {
+  color: var(--texto);
+}
+
+.aula__status {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+}
+
+.aula--ok .aula__status {
+  color: var(--branco);
+  background: var(--verde);
+  border-color: var(--verde);
+}
+
+.aula__status svg {
+  width: 14px;
+  height: 14px;
+}
+
+.detalhe__vazio {
+  color: var(--texto-suave);
+}
+
+@media (max-width: 768px) {
+  .detalhe__cabecalho {
+    flex-direction: column;
+  }
+
+  .detalhe__grade {
+    grid-template-columns: 1fr;
+  }
+}
