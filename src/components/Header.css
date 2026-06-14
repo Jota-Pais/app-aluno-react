@@ -1,0 +1,124 @@
+.cabecalho {
+  background: var(--branco);
+  border-bottom: 1px solid var(--borda);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+.cabecalho__marca {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--verde-escuro);
+}
+
+.cabecalho__marca span {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.cabecalho__nav {
+  display: flex;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.cabecalho__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--texto-suave);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.cabecalho__link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.cabecalho__link:hover {
+  color: var(--texto);
+}
+
+/* Classe aplicada automaticamente pelo NavLink na rota ativa. */
+.cabecalho__link.active {
+  color: var(--verde);
+}
+
+.cabecalho__usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cabecalho__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--verde-escuro);
+  color: #cfe6d8;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cabecalho__nome {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.cabecalho__sair {
+  font: inherit;
+  font-size: 13px;
+  color: var(--texto-suave);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cabecalho__sair:hover {
+  color: var(--erro);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .cabecalho__conteudo {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .cabecalho__usuario {
+    margin-left: auto;
+  }
+
+  .cabecalho__nome {
+    display: none;
+  }
+
+  .cabecalho__nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* No mobile o menu vira apenas ícones para não quebrar a navegação. */
+  .cabecalho__rotulo {
+    display: none;
+  }
+}

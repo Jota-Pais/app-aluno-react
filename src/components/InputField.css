@@ -1,0 +1,41 @@
+.campo {
+  margin-top: 22px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.campo label a {
+  float: right;
+  font-size: 13px;
+}
+
+.campo__input {
+  display: block;
+  width: 100%;
+  padding: 11px 12px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+}
+
+.campo__input:focus {
+  outline: none;
+  border-color: var(--verde);
+}
+
+.campo__input--erro {
+  border-color: var(--erro);
+}
+
+.campo__erro {
+  display: block;
+  margin-top: 6px;
+  color: var(--erro);
+  font-size: 13px;
+}

@@ -1,0 +1,26 @@
+.disciplina {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.disciplina__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.disciplina__nome {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: var(--texto);
+}
+
+.disciplina__professor {
+  margin: 0;
+  font-size: 13px;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}

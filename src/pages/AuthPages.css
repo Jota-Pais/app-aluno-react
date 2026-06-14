@@ -1,0 +1,43 @@
+/* Estilos compartilhados pelas telas de autenticação. */
+.auth__form-inner h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  color: var(--texto);
+}
+
+.auth__intro {
+  margin: 0;
+  color: var(--texto-suave);
+  line-height: 1.45;
+}
+
+/* Botão de envio dos formulários de auth ocupa a largura toda. */
+.auth__form-inner form .botao {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.auth__rodape {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.auth__sucesso {
+  margin-top: 24px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+  border-radius: 6px;
+}
+
+.auth__voltar {
+  display: inline-block;
+  margin-top: 18px;
+  text-decoration: none;
+}
+
+.auth__voltar:hover {
+  text-decoration: underline;
+}
