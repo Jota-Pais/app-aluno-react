@@ -113,12 +113,17 @@
     order: 3;
     width: 100%;
     margin-left: 0;
-    justify-content: space-between;
-    gap: 12px;
+    margin-top: 4px;
+    padding-top: 12px;
+    border-top: 1px solid var(--borda);
+    justify-content: space-around;
+    gap: 8px;
   }
 
-  /* No mobile o menu vira apenas ícones para não quebrar a navegação. */
-  .cabecalho__rotulo {
-    display: none;
+  /* No mobile cada item vira ícone com legenda embaixo (estilo barra de abas). */
+  .cabecalho__link {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
   }
 }

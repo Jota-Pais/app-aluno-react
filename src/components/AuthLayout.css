@@ -53,13 +53,22 @@
 }
 
 @media (max-width: 768px) {
+  /* Sem o hero, o formulário ocupa a tela toda. Alinhado ao topo e com
+     min-height para rolar quando for alto (ex.: Cadastro passo 2),
+     evitando corte em telas curtas. */
+  .auth {
+    display: block;
+  }
+
   .auth__hero {
     display: none;
   }
 
   .auth__form {
     width: 100%;
-    padding: 0 20px;
+    min-height: 100vh;
+    align-items: flex-start;
+    padding: 48px 20px;
   }
 
   .auth__form-inner {
