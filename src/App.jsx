@@ -7,6 +7,7 @@ import CadastroPasso1Page from './pages/CadastroPasso1Page'
 import CadastroPasso2Page from './pages/CadastroPasso2Page'
 import DashboardPage from './pages/DashboardPage'
 import DisciplinasPage from './pages/DisciplinasPage'
+import DisciplinaDetalhePage from './pages/DisciplinaDetalhePage'
 import PerfilPage from './pages/PerfilPage'
 import TutorIAPage from './pages/TutorIAPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -35,6 +36,7 @@ export default function App() {
         >
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/disciplinas" element={<DisciplinasPage />} />
+          <Route path="/disciplinas/:id" element={<DisciplinaDetalhePage />} />
           <Route path="/tutoria" element={<TutorIAPage />} />
           <Route path="/perfil" element={<PerfilPage />} />
         </Route>
