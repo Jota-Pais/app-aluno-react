@@ -1,0 +1,37 @@
+.progresso {
+  width: 100%;
+}
+
+.progresso--inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progresso__topo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--texto);
+}
+
+.progresso__trilho {
+  flex: 1;
+  height: 8px;
+  background: #e3e7ea;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progresso__preenchido {
+  height: 100%;
+  background: var(--verde);
+  border-radius: 999px;
+}
+
+.progresso__valor {
+  min-width: 38px;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
