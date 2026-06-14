@@ -23,6 +23,7 @@ body {
   color: var(--texto);
   background-color: var(--fundo);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a {
