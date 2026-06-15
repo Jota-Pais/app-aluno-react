@@ -1,0 +1,6 @@
+/* Quando o avatar é uma foto, herda tamanho/raio da classe do local e
+   recorta a imagem para preencher o círculo. */
+.avatar--foto {
+  display: block;
+  object-fit: cover;
+}

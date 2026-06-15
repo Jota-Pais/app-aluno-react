@@ -88,6 +88,125 @@
   color: var(--texto-suave);
 }
 
+/* Linhas com ação à direita: editar nome de preferência, revelar CPF */
+.perfil__valor--editavel,
+.perfil__valor--acao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.perfil__editar-abrir,
+.perfil__revelar {
+  font: inherit;
+  font-size: 14px;
+  color: var(--verde);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.perfil__editar-abrir:hover,
+.perfil__revelar:hover {
+  text-decoration: underline;
+}
+
+.perfil__editar {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.perfil__editar-input {
+  flex: 1;
+  min-width: 140px;
+  padding: 9px 11px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--branco);
+  border: 1px solid var(--verde);
+  border-radius: 6px;
+  outline: none;
+}
+
+.perfil__editar .botao {
+  padding: 9px 16px;
+}
+
+.perfil__editar-cancelar {
+  font: inherit;
+  font-size: 14px;
+  color: var(--texto-suave);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.perfil__editar-cancelar:hover {
+  color: var(--texto);
+}
+
+/* Grupo "Conta" da aba Segurança */
+.perfil__conta-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.perfil__botao-secundario {
+  font: inherit;
+  font-size: 14px;
+  color: var(--texto);
+  background: none;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.perfil__botao-secundario:hover {
+  border-color: var(--verde);
+  color: var(--verde-escuro);
+}
+
+.perfil__zona-perigo {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--borda);
+}
+
+.perfil__botao-perigo {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sobre-cor);
+  background: var(--erro);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+
+.perfil__botao-perigo:hover {
+  filter: brightness(0.95);
+}
+
+.perfil__confirmar-texto {
+  margin: 0 0 12px;
+  color: var(--erro);
+  font-size: 14px;
+}
+
+.perfil__confirmar-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .perfil__placeholder {
   padding: 40px;
   text-align: center;
@@ -95,6 +214,231 @@
   background: var(--branco);
   border: 1px solid var(--borda);
   border-radius: 10px;
+}
+
+/* Painel das abas Configurações, Segurança e Identidade */
+.perfil__painel {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.04);
+}
+
+.perfil__painel--identidade {
+  margin-bottom: 20px;
+}
+
+/* Foto de perfil (upload) */
+.identidade__foto {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.identidade__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--verde-escuro);
+  color: #cfe6d8;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.identidade__foto-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Esconde o input de arquivo; o <label> estilizado é o botão visível. */
+.identidade__file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.identidade__ajuda {
+  margin: 4px 0 14px;
+  font-size: 14px;
+  color: var(--texto-suave);
+}
+
+.identidade__github-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.identidade__github-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 11px 12px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  outline: none;
+}
+
+.identidade__github-input:focus {
+  border-color: var(--verde);
+}
+
+.identidade__erro {
+  margin: 12px 0 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--erro);
+  background: #fdecec;
+  border-radius: 8px;
+}
+
+.identidade__github {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.identidade__bio {
+  margin: 6px 0;
+  color: var(--texto-suave);
+}
+
+.identidade__github-dados {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--texto-suave);
+}
+
+.perfil__grupo {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.perfil__grupo:last-child {
+  border-bottom: none;
+}
+
+.perfil__grupo-titulo {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--verde-escuro);
+}
+
+.perfil__campo {
+  margin-top: 16px;
+}
+
+.perfil__campo label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.perfil__select {
+  width: 100%;
+  max-width: 320px;
+  padding: 11px 12px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+}
+
+.perfil__select:focus {
+  outline: none;
+  border-color: var(--verde);
+}
+
+.perfil__acoes {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.perfil__sucesso {
+  color: var(--verde-escuro);
+  font-size: 14px;
+}
+
+.perfil__aviso {
+  margin: 12px 0 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+  border-radius: 8px;
+}
+
+/* Lista de sessões ativas */
+.perfil__sessoes {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perfil__sessao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.perfil__sessao:last-child {
+  border-bottom: none;
+}
+
+.perfil__sessao-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.perfil__sessao-dispositivo {
+  font-size: 15px;
+  color: var(--texto);
+}
+
+.perfil__sessao-local {
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+
+.perfil__sessao-sair {
+  font: inherit;
+  font-size: 14px;
+  color: var(--erro);
+  background: none;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.perfil__sessao-sair:hover {
+  border-color: var(--erro);
+  background: #fdecec;
+}
+
+.perfil__sessoes-vazio {
+  margin: 8px 0 0;
+  color: var(--texto-suave);
 }
 
 @media (max-width: 768px) {

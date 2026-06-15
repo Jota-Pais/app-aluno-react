@@ -32,24 +32,151 @@
   border-radius: 8px;
 }
 
+/* Sugestões de perguntas (chips clicáveis) exibidas no início da conversa */
+.tutoria__sugestoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.tutoria__sugestao {
+  font: inherit;
+  font-size: 14px;
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.tutoria__sugestao:hover {
+  border-color: var(--verde);
+  background: var(--branco);
+}
+
+/* Chip indicando a disciplina em foco (anexada pelo clipe) */
+.tutoria__anexo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 6px 8px 6px 12px;
+  font-size: 14px;
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+  border-radius: 999px;
+}
+
+.tutoria__anexo svg {
+  width: 16px;
+  height: 16px;
+}
+
+.tutoria__anexo-remover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--verde-escuro);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.tutoria__anexo-remover:hover {
+  background: rgba(15, 88, 48, 0.12);
+}
+
 .tutoria__form {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 8px 8px 16px;
+  padding: 8px 8px 8px 12px;
   background: var(--branco);
   border: 1px solid var(--borda);
   border-radius: 999px;
 }
 
+/* Botão do clipe + menu de disciplinas que abre acima dele */
+.tutoria__clipe-wrap {
+  position: relative;
+  display: flex;
+}
+
 .tutoria__clipe {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   color: var(--texto-suave);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tutoria__clipe:hover,
+.tutoria__clipe--ativo {
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
 }
 
 .tutoria__clipe svg {
   width: 20px;
   height: 20px;
+}
+
+.tutoria__menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  z-index: 10;
+  min-width: 220px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(31, 45, 61, 0.12);
+}
+
+.tutoria__menu-titulo {
+  padding: 8px 10px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--texto-suave);
+}
+
+.tutoria__menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+  color: var(--texto);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 10px;
+  cursor: pointer;
+}
+
+.tutoria__menu-item:hover {
+  background: var(--verde-claro);
+  color: var(--verde-escuro);
 }
 
 .tutoria__input {
@@ -67,7 +194,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  color: var(--branco);
+  color: var(--sobre-cor);
   background: var(--verde);
   border: none;
   border-radius: 50%;

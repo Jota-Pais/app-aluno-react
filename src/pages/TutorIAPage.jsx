@@ -1,9 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
-import { useUsuario } from '../context/UsuarioContext'
+import { useUsuario, nomeDeExibicao } from '../context/UsuarioContext'
 import ChatMessage from '../components/ChatMessage'
-import { buscarRespostaTutor } from '../services/tutorIaService'
-import { IconeClipe, IconeEnviar } from '../components/Icones'
+import {
+  buscarMaterial,
+  montarResposta,
+  montarBoasVindas,
+} from '../services/tutorIaService'
+import { disciplinas } from '../services/disciplinas'
+import { IconeClipe, IconeEnviar, IconeDisciplinas } from '../components/Icones'
 import './TutorIAPage.css'
+
+// Perguntas prontas para o aluno começar sem precisar pensar no que digitar.
+const SUGESTOES = [
+  'Como me organizar para as provas?',
+  'Explique o conceito de integral.',
+  'Resuma os principais pontos de Estatística.',
+  'Dicas para estudar Front-end.',
+]
 
 export default function TutorIAPage() {
   const { usuario } = useUsuario()
@@ -11,16 +24,18 @@ export default function TutorIAPage() {
   const [mensagens, setMensagens] = useState([])
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
+  const [disciplinaAnexada, setDisciplinaAnexada] = useState(null)
+  const [menuAberto, setMenuAberto] = useState(false)
   const proximoId = useRef(1)
 
-  function adicionarMensagem(autor, texto) {
+  function adicionarMensagem(campos) {
     setMensagens((anteriores) => [
       ...anteriores,
-      { id: proximoId.current++, autor, texto },
+      { id: proximoId.current++, ...campos },
     ])
   }
 
-  // Carrega uma mensagem de boas-vindas do Tutor ao montar a tela.
+  // Carrega a mensagem de boas-vindas do Tutor ao montar a tela.
   // Padrão canônico: fetch em useEffect com loading/erro/dados e limpeza.
   useEffect(() => {
     let ativo = true
@@ -28,9 +43,11 @@ export default function TutorIAPage() {
     async function carregarBoasVindas() {
       setCarregando(true)
       try {
-        const resposta = await buscarRespostaTutor('boas-vindas')
+        const material = await buscarMaterial()
         if (ativo) {
-          setMensagens([{ id: 0, autor: 'tutor', texto: resposta }])
+          setMensagens([
+            { id: 0, autor: 'tutor', texto: montarBoasVindas(material) },
+          ])
         }
       } catch {
         if (ativo) {
@@ -49,26 +66,59 @@ export default function TutorIAPage() {
     }
   }, [])
 
-  async function enviar(evento) {
-    evento.preventDefault()
-    const texto = pergunta.trim()
+  // Envia uma pergunta (do campo ou de uma sugestão) e busca a resposta.
+  // Consumo de API: padrão loading / erro / dados com try/catch/finally.
+  async function enviarPergunta(textoBruto) {
+    const texto = textoBruto.trim()
     if (!texto || carregando) return
 
-    adicionarMensagem('usuario', texto)
+    const disciplina = disciplinaAnexada
+    adicionarMensagem({ autor: 'usuario', texto })
     setPergunta('')
     setErro('')
+    setMenuAberto(false)
     setCarregando(true)
 
-    // Consumo de API: padrão loading / erro / dados com try/catch/finally.
     try {
-      const resposta = await buscarRespostaTutor(texto)
-      adicionarMensagem('tutor', resposta)
+      const material = await buscarMaterial()
+      adicionarMensagem({
+        autor: 'tutor',
+        texto: montarResposta(texto, disciplina, material),
+        pergunta: texto,
+        disciplina,
+      })
     } catch {
       setErro('Não foi possível obter a resposta do Tutor IA. Tente novamente.')
     } finally {
       setCarregando(false)
     }
   }
+
+  // Gera uma nova resposta para a mesma pergunta (botão "Refazer" da mensagem).
+  async function refazer(id, perguntaOriginal, disciplina) {
+    if (carregando) return
+    setErro('')
+    setCarregando(true)
+    try {
+      const material = await buscarMaterial()
+      const novoTexto = montarResposta(perguntaOriginal, disciplina, material)
+      setMensagens((anteriores) =>
+        anteriores.map((m) => (m.id === id ? { ...m, texto: novoTexto } : m)),
+      )
+    } catch {
+      setErro('Não foi possível gerar outra resposta. Tente novamente.')
+    } finally {
+      setCarregando(false)
+    }
+  }
+
+  function enviar(evento) {
+    evento.preventDefault()
+    enviarPergunta(pergunta)
+  }
+
+  // Sugestões só aparecem no início (apenas a mensagem de boas-vindas na tela).
+  const mostrarSugestoes = mensagens.length <= 1 && !carregando && !erro
 
   return (
     <section className="tutoria">
@@ -83,10 +133,15 @@ export default function TutorIAPage() {
           <ChatMessage
             key={mensagem.id}
             autor={mensagem.autor}
-            nome={usuario.nome}
-          >
-            {mensagem.texto}
-          </ChatMessage>
+            nome={nomeDeExibicao(usuario)}
+            texto={mensagem.texto}
+            onRefazer={
+              mensagem.pergunta
+                ? () =>
+                    refazer(mensagem.id, mensagem.pergunta, mensagem.disciplina)
+                : undefined
+            }
+          />
         ))}
 
         {carregando && (
@@ -96,14 +151,81 @@ export default function TutorIAPage() {
         {erro && <p className="tutoria__erro">{erro}</p>}
       </div>
 
+      {mostrarSugestoes && (
+        <div className="tutoria__sugestoes">
+          {SUGESTOES.map((sugestao) => (
+            <button
+              key={sugestao}
+              type="button"
+              className="tutoria__sugestao"
+              onClick={() => enviarPergunta(sugestao)}
+            >
+              {sugestao}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {disciplinaAnexada && (
+        <div className="tutoria__anexo">
+          <IconeDisciplinas />
+          <span>
+            Foco: <strong>{disciplinaAnexada.nome}</strong>
+          </span>
+          <button
+            type="button"
+            className="tutoria__anexo-remover"
+            onClick={() => setDisciplinaAnexada(null)}
+            aria-label="Remover foco da disciplina"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       <form className="tutoria__form" onSubmit={enviar}>
-        <span className="tutoria__clipe">
-          <IconeClipe />
-        </span>
+        <div className="tutoria__clipe-wrap">
+          <button
+            type="button"
+            className={`tutoria__clipe ${
+              menuAberto || disciplinaAnexada ? 'tutoria__clipe--ativo' : ''
+            }`}
+            onClick={() => setMenuAberto((aberto) => !aberto)}
+            aria-label="Focar numa disciplina"
+            title="Focar numa disciplina"
+          >
+            <IconeClipe />
+          </button>
+
+          {menuAberto && (
+            <ul className="tutoria__menu">
+              <li className="tutoria__menu-titulo">Focar numa disciplina</li>
+              {disciplinas.map((disciplina) => (
+                <li key={disciplina.id}>
+                  <button
+                    type="button"
+                    className="tutoria__menu-item"
+                    onClick={() => {
+                      setDisciplinaAnexada(disciplina)
+                      setMenuAberto(false)
+                    }}
+                  >
+                    {disciplina.nome}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <input
           className="tutoria__input"
           type="text"
-          placeholder="Pergunte alguma coisa"
+          placeholder={
+            disciplinaAnexada
+              ? `Pergunte sobre ${disciplinaAnexada.nome}…`
+              : 'Pergunte alguma coisa'
+          }
           value={pergunta}
           onChange={(evento) => setPergunta(evento.target.value)}
         />

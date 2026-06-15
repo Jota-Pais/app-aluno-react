@@ -11,7 +11,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  color: var(--branco);
+  color: var(--sobre-cor);
   font-size: 13px;
   font-weight: 600;
 }
@@ -39,14 +39,52 @@
   line-height: 1.55;
 }
 
+.mensagem__texto p {
+  margin: 0 0 10px;
+  white-space: pre-line;
+}
+
+.mensagem__texto p:last-child {
+  margin-bottom: 0;
+}
+
 .mensagem__acoes {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 6px;
   margin-top: 10px;
   color: var(--texto-suave);
+}
+
+.mensagem__acao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  color: inherit;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mensagem__acao:hover {
+  color: var(--verde-escuro);
+  background: var(--verde-claro);
+}
+
+.mensagem__acao--ativo {
+  color: var(--verde);
 }
 
 .mensagem__acoes svg {
   width: 16px;
   height: 16px;
+}
+
+.mensagem__nota {
+  margin-left: 4px;
+  font-size: 12px;
+  color: var(--verde-escuro);
 }

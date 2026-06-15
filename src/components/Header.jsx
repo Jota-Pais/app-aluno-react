@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { useUsuario } from '../context/UsuarioContext'
+import { useUsuario, nomeDeExibicao } from '../context/UsuarioContext'
+import Avatar from './Avatar'
 import {
   IconePainel,
   IconeDisciplinas,
@@ -19,13 +20,7 @@ export default function Header() {
   const { usuario, logout } = useUsuario()
 
   // Nome vem do Context (sem prop drilling), assim como no Dashboard e Perfil.
-  const iniciais = usuario.nome
-    .split(' ')
-    .map((parte) => parte[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
-  const primeiroNome = usuario.nome.split(' ')[0]
+  const primeiroNome = nomeDeExibicao(usuario)
 
   return (
     <header className="cabecalho">
@@ -50,7 +45,11 @@ export default function Header() {
         </nav>
 
         <div className="cabecalho__usuario">
-          <span className="cabecalho__avatar">{iniciais}</span>
+          <Avatar
+            nome={usuario.nome}
+            foto={usuario.foto}
+            className="cabecalho__avatar"
+          />
           <span className="cabecalho__nome">{primeiroNome}</span>
           <button className="cabecalho__sair" onClick={logout}>
             Sair

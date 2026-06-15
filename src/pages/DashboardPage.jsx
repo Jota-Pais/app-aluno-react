@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useUsuario } from '../context/UsuarioContext'
+import { useNavigate } from 'react-router-dom'
+import { useUsuario, nomeDeExibicao } from '../context/UsuarioContext'
 import Card from '../components/Card'
 import Botao from '../components/Botao'
 import ProgressBar from '../components/ProgressBar'
 import CardEstatistica from '../components/CardEstatistica'
+import { disciplinas } from '../services/disciplinas'
 import {
   IconeSeta,
   IconeRelogio,
@@ -12,20 +14,25 @@ import {
 } from '../components/Icones'
 import './DashboardPage.css'
 
-const cursosEmAndamento = [
-  {
-    id: 1,
-    titulo: 'Front-end',
-    descricao: 'Aula 2: Conceitos do desenvolvimento Front-end e GIT + Github.',
-    progresso: 65,
-  },
-  {
-    id: 2,
-    titulo: 'UX Design',
-    descricao: 'Aula 3: Usabilidade.',
-    progresso: 25,
-  },
-]
+// Os cursos "em andamento" derivam das disciplinas reais (mesma fonte da tela
+// de Disciplinas), então o painel nunca mostra uma matéria que não existe lá.
+// Pega as 2 disciplinas em curso com maior progresso e usa a próxima aula
+// pendente de cada uma como a "tarefa" atual.
+const cursosEmAndamento = disciplinas
+  .filter((d) => d.status === 'Em curso' && d.progresso > 0 && d.progresso < 100)
+  .sort((a, b) => b.progresso - a.progresso)
+  .slice(0, 2)
+  .map((d) => {
+    const proximaAula = d.aulas.find((aula) => !aula.concluida)
+    return {
+      id: d.id,
+      titulo: d.nome,
+      descricao: proximaAula
+        ? `Aula ${proximaAula.id}: ${proximaAula.titulo}.`
+        : 'Todas as aulas concluídas. Hora de revisar o conteúdo.',
+      progresso: d.progresso,
+    }
+  })
 
 const estatisticas = [
   {
@@ -60,6 +67,7 @@ function calcularSaudacao(data) {
 
 export default function DashboardPage() {
   const { usuario } = useUsuario()
+  const navigate = useNavigate()
   const [agora, setAgora] = useState(() => new Date())
 
   // Efeito colateral: relógio que atualiza a cada segundo, com limpeza
@@ -76,7 +84,7 @@ export default function DashboardPage() {
     year: 'numeric',
   })
   const horario = agora.toLocaleTimeString('pt-BR')
-  const primeiroNome = usuario.nome.split(' ')[0]
+  const primeiroNome = nomeDeExibicao(usuario)
 
   return (
     <section>
@@ -102,7 +110,10 @@ export default function DashboardPage() {
             <p className="curso__desc">{curso.descricao}</p>
             <ProgressBar valor={curso.progresso} />
           </div>
-          <Botao className="curso__botao">
+          <Botao
+            className="curso__botao"
+            onClick={() => navigate(`/disciplinas/${curso.id}`)}
+          >
             Retomar Estudo <IconeSeta />
           </Botao>
         </Card>

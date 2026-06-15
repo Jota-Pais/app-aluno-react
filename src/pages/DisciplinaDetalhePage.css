@@ -118,7 +118,7 @@
 }
 
 .aula--ok .aula__status {
-  color: var(--branco);
+  color: var(--sobre-cor);
   background: var(--verde);
   border-color: var(--verde);
 }

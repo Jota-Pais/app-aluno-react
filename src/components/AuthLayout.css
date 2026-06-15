@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--branco);
+  color: var(--sobre-cor);
   /* Foto do Einstein (domínio público) ao fundo, com uma camada verde
      translúcida por cima: mantém a identidade verde e a legibilidade. */
   background-color: var(--verde-escuro);

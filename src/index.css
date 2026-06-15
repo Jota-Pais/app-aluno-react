@@ -11,6 +11,48 @@
   --texto-suave: #6b7280;
   --borda: #e6e8eb;
   --erro: #d64545;
+  /* Cor de texto/ícone sobre fundos coloridos (verde). Branca nos dois temas,
+     diferente de --branco, que é uma superfície e escurece no modo escuro. */
+  --sobre-cor: #ffffff;
+}
+
+/* Tema escuro: aplicado em <html data-tema="escuro">. Como toda a UI usa
+   variáveis de cor, basta sobrescrevê-las aqui. */
+:root[data-tema='escuro'] {
+  --verde-escuro: #6fd28e; /* títulos/destaques em verde, agora claros */
+  --verde: #38aa61;
+  --verde-hover: #2f9352;
+  --verde-claro: #173a25; /* fundo de acento sutil */
+  --fundo: #0f141a;
+  --branco: #1a212a; /* superfícies: cards, inputs, cabeçalho */
+  --texto: #e6e8eb;
+  --texto-suave: #9aa3ad;
+  --borda: #2b333d;
+  --erro: #f06a6a;
+}
+
+/* Ajustes pontuais de contraste no tema escuro (elementos que usavam um tom
+   claro fixo sobre fundo colorido ou neutro escuro). */
+:root[data-tema='escuro'] .cabecalho__avatar,
+:root[data-tema='escuro'] .perfil__avatar,
+:root[data-tema='escuro'] .identidade__avatar {
+  background: var(--verde);
+  color: var(--sobre-cor);
+}
+
+:root[data-tema='escuro'] .mensagem--tutor .mensagem__avatar {
+  background: #33404d;
+}
+
+:root[data-tema='escuro'] .badge--cinza {
+  background: #2b333d;
+  color: var(--texto-suave);
+}
+
+:root[data-tema='escuro'] .tutoria__erro,
+:root[data-tema='escuro'] .identidade__erro,
+:root[data-tema='escuro'] .perfil__sessao-sair:hover {
+  background: rgba(240, 106, 106, 0.15);
 }
 
 * {
