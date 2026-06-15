@@ -13,6 +13,19 @@
   --erro: #d64545;
 }
 
+/* Tema escuro quando o atributo data-tema="escuro" está presente no elemento raiz */
+[data-tema="escuro"] {
+  --fundo: #0b0f13;
+  --branco: #0f1720;
+  --texto: #e6eef6;
+  --texto-suave: #9aa6b3;
+  --borda: rgba(255,255,255,0.06);
+  --verde-escuro: #0b4a2b;
+  --verde: #2f8f4e;
+  --verde-claro: rgba(47,143,78,0.08);
+  --erro: #ff6b6b;
+}
+
 * {
   box-sizing: border-box;
 }

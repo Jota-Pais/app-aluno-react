@@ -36,8 +36,14 @@ export function UsuarioProvider({ children }) {
     setUsuario(null)
   }
 
+  function atualizarUsuario(changes = {}) {
+    setUsuario((prev) => ({ ...(prev || {}), ...changes }))
+  }
+
   return (
-    <UsuarioContext.Provider value={{ usuario, login, logout }}>
+    <UsuarioContext.Provider
+      value={{ usuario, login, logout, atualizarUsuario }}
+    >
       {children}
     </UsuarioContext.Provider>
   )
