@@ -84,5 +84,5 @@ src/
 - **React Router**: `BrowserRouter`, `Routes`, `Route`, `NavLink` e `useNavigate`.
 - **Context API** para compartilhar o usuário e o tema entre as telas, sem prop drilling.
 - **Consumo de API com `fetch`** usando `try` / `catch` / `finally` e checagem de `res.ok`
-  (duas APIs: JSONPlaceholder no Tutor IA e GitHub no Perfil).
+  (duas APIs: Gemini (Google) no Tutor IA e GitHub no Perfil).
 - **Estilização** com `className` + arquivos `.css`, responsiva (desktop e mobile) e com tema claro/escuro.

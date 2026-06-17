@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useUsuario, nomeDeExibicao } from '../context/UsuarioContext'
 import ChatMessage from '../components/ChatMessage'
-import { pedirParaIA, buscarMaterial, montarBoasVindas } from '../services/tutorIaService';
+import { pedirParaIA, montarBoasVindas } from '../services/tutorIaService';
 import { disciplinas } from '../services/disciplinas'
 import { IconeClipe, IconeEnviar, IconeDisciplinas } from '../components/Icones'
 import './TutorIAPage.css'
@@ -17,7 +17,10 @@ const SUGESTOES = [
 export default function TutorIAPage() {
   const { usuario } = useUsuario()
   const [pergunta, setPergunta] = useState('')
-  const [mensagens, setMensagens] = useState([])
+  // Já inicia com a mensagem de boas-vindas fixa do Tutor.
+  const [mensagens, setMensagens] = useState(() => [
+    { id: 0, autor: 'tutor', texto: montarBoasVindas() },
+  ])
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
   const [disciplinaAnexada, setDisciplinaAnexada] = useState(null)
@@ -30,37 +33,6 @@ export default function TutorIAPage() {
       { id: proximoId.current++, ...campos },
     ])
   }
-
-  // Carrega a mensagem de boas-vindas do Tutor ao montar a tela.
-  // Padrão canônico: fetch em useEffect com loading/erro/dados e limpeza.
-  useEffect(() => {
-    let ativo = true
-
-    async function carregarBoasVindas() {
-      setCarregando(true)
-      try {
-        const material = await buscarMaterial()
-        if (ativo) {
-          setMensagens([
-            { id: 0, autor: 'tutor', texto: montarBoasVindas(material) },
-          ])
-        }
-      } catch {
-        if (ativo) {
-          setErro('Não foi possível iniciar o Tutor IA. Recarregue a página.')
-        }
-      } finally {
-        if (ativo) {
-          setCarregando(false)
-        }
-      }
-    }
-
-    carregarBoasVindas()
-    return () => {
-      ativo = false
-    }
-  }, [])
 
   // Envia uma pergunta (do campo ou de uma sugestão) e busca a resposta.
   // Consumo de API: padrão loading / erro / dados com try/catch/finally.
@@ -76,15 +48,11 @@ export default function TutorIAPage() {
     setCarregando(true)
 
     try {
-      // 1. Pede a resposta real para a IA (Gemini)
+      // Pede a resposta real para a IA (Gemini)
       const respostaIA = await pedirParaIA(texto, disciplina ? disciplina.nome : '');
-      // 2. Busca o material extra
-      const material = await buscarMaterial();
-      // 3. Junta a IA com o material
-      const textoFinal = `${respostaIA}\n\n---\n📚 Material de referência — "${material.titulo}":\n${material.corpo}`;
       adicionarMensagem({
         autor: 'tutor',
-        texto: textoFinal,
+        texto: respostaIA,
         pergunta: texto,
         disciplina,
       })
@@ -101,12 +69,9 @@ export default function TutorIAPage() {
     setErro('')
     setCarregando(true)
     try {
-      // Faz a mesma junção da IA com o material de referência
       const respostaIA = await pedirParaIA(perguntaOriginal, disciplina ? disciplina.nome : '');
-      const material = await buscarMaterial();
-      const novoTexto = `${respostaIA}\n\n---\n📚 Material de referência — "${material.titulo}":\n${material.corpo}`;
       setMensagens((anteriores) =>
-        anteriores.map((m) => (m.id === id ? { ...m, texto: novoTexto } : m)),
+        anteriores.map((m) => (m.id === id ? { ...m, texto: respostaIA } : m)),
       )
     } catch {
       setErro('Não foi possível gerar outra resposta. Tente novamente.')
