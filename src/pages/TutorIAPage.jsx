@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useUsuario, nomeDeExibicao } from '../context/UsuarioContext'
 import ChatMessage from '../components/ChatMessage'
-import {
-  buscarMaterial,
-  montarResposta,
-  montarBoasVindas,
-} from '../services/tutorIaService'
+import { pedirParaIA, buscarMaterial, montarBoasVindas } from '../services/tutorIaService';
 import { disciplinas } from '../services/disciplinas'
 import { IconeClipe, IconeEnviar, IconeDisciplinas } from '../components/Icones'
 import './TutorIAPage.css'
@@ -80,10 +76,15 @@ export default function TutorIAPage() {
     setCarregando(true)
 
     try {
-      const material = await buscarMaterial()
+      // 1. Pede a resposta real para a IA (Gemini)
+      const respostaIA = await pedirParaIA(texto, disciplina ? disciplina.nome : '');
+      // 2. Busca o material extra
+      const material = await buscarMaterial();
+      // 3. Junta a IA com o material
+      const textoFinal = `${respostaIA}\n\n---\n📚 Material de referência — "${material.titulo}":\n${material.corpo}`;
       adicionarMensagem({
         autor: 'tutor',
-        texto: montarResposta(texto, disciplina, material),
+        texto: textoFinal,
         pergunta: texto,
         disciplina,
       })
@@ -100,8 +101,10 @@ export default function TutorIAPage() {
     setErro('')
     setCarregando(true)
     try {
-      const material = await buscarMaterial()
-      const novoTexto = montarResposta(perguntaOriginal, disciplina, material)
+      // Faz a mesma junção da IA com o material de referência
+      const respostaIA = await pedirParaIA(perguntaOriginal, disciplina ? disciplina.nome : '');
+      const material = await buscarMaterial();
+      const novoTexto = `${respostaIA}\n\n---\n📚 Material de referência — "${material.titulo}":\n${material.corpo}`;
       setMensagens((anteriores) =>
         anteriores.map((m) => (m.id === id ? { ...m, texto: novoTexto } : m)),
       )

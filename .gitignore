@@ -25,3 +25,6 @@ dist-ssr
 
 # Especificação do trabalho (referência do professor — não faz parte do código entregue)
 requisitos.md
+
+# Proteje a chave da api da ia do tutor de ir pro github
+.env
