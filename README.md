@@ -86,7 +86,3 @@ src/
 - **Consumo de API com `fetch`** usando `try` / `catch` / `finally` e checagem de `res.ok`
   (duas APIs: Gemini (Google) no Tutor IA e GitHub no Perfil).
 - **Estilização** com `className` + arquivos `.css`, responsiva (desktop e mobile) e com tema claro/escuro.
-
-## 📄 Licença
-
-Distribuído sob a licença MIT. Veja [`LICENSE`](LICENSE) para mais detalhes.
