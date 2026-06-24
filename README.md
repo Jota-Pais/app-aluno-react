@@ -5,14 +5,6 @@ Portabilidade do **App Aluno** (originalmente em HTML, CSS e JavaScript puro) pa
 
 Trabalho final (N3) da disciplina de Front-end — Engenharia de Software / SATC.
 
-<!-- 📸 DEMONSTRAÇÃO — quando tiver prints/GIF (Login, Dashboard, Tutor IA, tema escuro), crie a pasta docs/, salve as imagens lá e descomente:
-## 📸 Demonstração
-
-![Login](docs/login.png)
-![Dashboard](docs/dashboard.png)
-![Tutor IA](docs/tutor-ia.png)
--->
-
 ## Tecnologias
 
 - [Vite](https://vite.dev/) + React (JavaScript)
